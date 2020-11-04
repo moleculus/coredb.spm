@@ -4,7 +4,7 @@ import RealmSwift
 public protocol CacheInitializable {
     associatedtype DBObject: RealmSwift.Object
     
-    var id: String { get }
+    var id: Int { get }
     init(cached: DBObject) throws
 }
 
