@@ -9,7 +9,7 @@ public protocol CacheInitializable {
 }
 
 public extension CacheInitializable {
-    static func with(id: String) throws -> Self {
+    static func with(id: Int) throws -> Self {
         let cached = try DBCacheLoader<DBObject>().with(id: id)
         return try Self(cached: cached)
     }

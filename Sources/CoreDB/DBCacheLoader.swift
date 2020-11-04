@@ -28,7 +28,7 @@ public struct DBCacheLoader<DBObject: RealmSwift.Object> {
         return Array(objects)
     }
     
-    func with(id: String) throws -> DBObject {
+    func with(id: Int) throws -> DBObject {
         guard let object = realm.object(ofType: DBObject.self, forPrimaryKey: id) else {
             throw DatabaseError.failedToFindObjectById(type: DBObject.self, id: id)
         }
