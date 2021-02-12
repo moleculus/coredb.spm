@@ -1,15 +1,15 @@
 import Foundation
 import RealmSwift
 
-public protocol CacheInitializable {
-    associatedtype DBObject: RealmSwift.Object
-    
-    var id: Int { get }
+public protocol CacheInitializable: Identifiable {
+    associatedtype DBObject: RealmSwift.Object & Identifiable
+        
+    var id: DBObject.ID { get }
     init(cached: DBObject) throws
 }
 
 public extension CacheInitializable {
-    static func with(id: Int) throws -> Self {
+    static func with(id: DBObject.ID) throws -> Self {
         let cached = try DBCacheLoader<DBObject>().with(id: id)
         return try Self(cached: cached)
     }

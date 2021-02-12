@@ -1,7 +1,7 @@
 import Foundation
 import RealmSwift
 
-public struct DBCacheEditor<DBObject: RealmSwift.Object> {
+public struct DBCacheEditor<DBObject: RealmSwift.Object & Identifiable> {
     
     // Properties.
     

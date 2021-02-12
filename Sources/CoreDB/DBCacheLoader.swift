@@ -1,7 +1,7 @@
 import Foundation
 import RealmSwift
 
-public struct DBCacheLoader<DBObject: RealmSwift.Object> {
+public struct DBCacheLoader<DBObject: RealmSwift.Object & Identifiable> {
     
     // Properties.
     
@@ -28,9 +28,9 @@ public struct DBCacheLoader<DBObject: RealmSwift.Object> {
         return Array(objects)
     }
     
-    func with(id: Int) throws -> DBObject {
+    func with(id: DBObject.ID) throws -> DBObject {
         guard let object = realm.object(ofType: DBObject.self, forPrimaryKey: id) else {
-            throw DatabaseError.failedToFindObjectById(type: DBObject.self, id: id)
+            throw "Failed to find object of type \(DBObject.self) by ID"
         }
         
         return object
@@ -38,7 +38,7 @@ public struct DBCacheLoader<DBObject: RealmSwift.Object> {
     
     func with(predicate: NSPredicate) throws -> DBObject {
         guard let object = realm.objects(DBObject.self).filter(predicate).first else {
-            throw DatabaseError.failedToFindObjectWithPredicate(type: DBObject.self, predicate: predicate)
+            throw "Failed to find objects of type \(DBObject.self) with predicate \(predicate)"
         }
 
         return object
