@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "CoreDB",
     platforms: [
-        .iOS(.v14)
+        .iOS(.v13)
     ],
     products: [
         .library(name: "CoreDB", targets: ["CoreDB"])
