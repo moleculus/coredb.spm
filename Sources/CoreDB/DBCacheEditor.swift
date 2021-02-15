@@ -22,4 +22,12 @@ public struct DBCacheEditor<DBObject: RealmSwift.Object & Identifiable> {
             realm.delete(cached)
         }
     }
+    
+    public func cache(_ object: DBObject, changing handler: (DBObject) -> Void) {
+        try! realm.write() {
+            handler(object)
+            realm.add(object, update: .all)
+        }
+    }
+    
 }
