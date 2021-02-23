@@ -9,17 +9,17 @@ public protocol CacheInitializable: Identifiable {
 }
 
 public extension CacheInitializable {
-    static func with(id: DBObject.ID) throws -> Self {
+    static func cached(id: DBObject.ID) throws -> Self {
         let cached = try DBCacheLoader<DBObject>().with(id: id)
         return try Self(cached: cached)
     }
     
-    static func with(predicate: NSPredicate) throws -> Self {
+    static func cached(matching predicate: NSPredicate) throws -> Self {
         let cached = try DBCacheLoader<DBObject>().with(predicate: predicate)
         return try Self(cached: cached)
     }
     
-    static func all(matching predicate: NSPredicate? = nil) -> [Self] {
+    static func allCached(matching predicate: NSPredicate? = nil) -> [Self] {
         let cached = DBCacheLoader<DBObject>().with(predicate: predicate)
         return cached.compactMap { try? Self(cached: $0) }
     }

@@ -29,5 +29,5 @@ public struct DBCacheEditor<DBObject: RealmSwift.Object & Identifiable> {
             realm.add(object, update: .all)
         }
     }
-    
+        
 }
