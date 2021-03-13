@@ -9,26 +9,26 @@ public protocol CacheInitializable: Identifiable {
 }
 
 public extension CacheInitializable {
-    static func cached(id: DBObject.ID, in realm: Realm = .default) throws -> Self {
+    static func cached(id: DBObject.ID, in realm: Realm) throws -> Self {
         let cached = try DBCacheLoader<DBObject>(realm: realm).with(id: id)
         return try Self(cached: cached)
     }
     
-    static func cached(matching predicate: NSPredicate, in realm: Realm = .default) throws -> Self {
+    static func cached(matching predicate: NSPredicate, in realm: Realm) throws -> Self {
         let cached = try DBCacheLoader<DBObject>(realm: realm).with(predicate: predicate)
         return try Self(cached: cached)
     }
     
-    static func allCached(matching predicate: NSPredicate? = nil, in realm: Realm = .default) -> [Self] {
+    static func allCached(matching predicate: NSPredicate? = nil, in realm: Realm) -> [Self] {
         let cached = DBCacheLoader<DBObject>(realm: realm).with(predicate: predicate)
         return cached.compactMap { try? Self(cached: $0) }
     }
     
-    static func removeAll(in realm: Realm = .default) {
+    static func removeAll(in realm: Realm) {
         DBCacheEditor<DBObject>(realm: realm).remove(matching: nil)
     }
     
-    static func remove(matching predicate: NSPredicate, in realm: Realm = .default) {
+    static func remove(matching predicate: NSPredicate, in realm: Realm) {
         DBCacheEditor<DBObject>(realm: realm).remove(matching: predicate)
     }
 }

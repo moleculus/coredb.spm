@@ -9,7 +9,7 @@ public struct DBCacheLoader<DBObject: RealmSwift.Object & Identifiable> {
     
     // MARK: - Initialization.
     
-    public init(realm: Realm = .default) {
+    public init(realm: Realm) {
         self.realm = realm
     }
     
