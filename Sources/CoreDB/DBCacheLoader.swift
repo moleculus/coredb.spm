@@ -30,7 +30,7 @@ public struct DBCacheLoader<DBObject: RealmSwift.Object & Identifiable> {
     
     public func with(id: DBObject.ID) throws -> DBObject {
         guard let object = realm.object(ofType: DBObject.self, forPrimaryKey: id) else {
-            throw "Failed to find object of type \(DBObject.self) by ID"
+            throw "Failed to find object of type \(DBObject.self) by ID (\(id))"
         }
         
         return object
